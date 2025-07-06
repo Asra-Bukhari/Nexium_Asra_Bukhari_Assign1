@@ -17,18 +17,10 @@ Users can enter a topic/keyword and view 3 motivational quotes from a local arra
 
 ## 📂 Project Structure:
 
-quote-generator/
-│
-├── app/ # Pages & UI
-├── components/ # Form Component
-├── data/ # Quotes data (local)
-├── public/ # Static files 
-│
-├── .env.example
-├── package.json
-├── tailwind.config.ts
-│
-└── README.md
+> app/ # Pages & UI
+> components/ # Form Component
+> data/ # Quotes data (local)
+> public/ # Static files 
 
 
 ## 🌐 View Live on Vercel:
