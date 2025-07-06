@@ -31,7 +31,7 @@ https://quote-generator-1tat4c7sp-asra-bukharis-projects.vercel.app
 
 1. Clone the project:
 
-git clone https://github.com/yourusername/Nexium_Asra_Assign1.git
+git clone https://github.com/Asra-Bukhari/Nexium_Asra_Assign1.git
 cd quote-generator
 
 2. Install dependencies:
