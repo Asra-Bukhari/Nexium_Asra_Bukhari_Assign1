@@ -25,7 +25,7 @@ Users can enter a topic/keyword and view 3 motivational quotes from a local arra
 
 ## 🌐 View Live on Vercel:
 
-https://your-vercel-project-url.vercel.app
+quote-generator-1tat4c7sp-asra-bukharis-projects.vercel.app
 
 
 
