@@ -120,3 +120,27 @@
     @apply bg-background text-foreground;
   }
 }
+
+
+.falling-word {
+  position: absolute;
+  top: -2rem;
+  font-size: 1rem;
+  color: rgba(255, 255, 255, 0.5);
+  animation: fall linear infinite;
+}
+
+@keyframes fall {
+  0% {
+    transform: translateY(0);
+  }
+  100% {
+    transform: translateY(120vh);
+  }
+}
+
+.stroke-text {
+  -webkit-text-stroke: 1px black;
+  text-shadow: 2px 2px 0 #c084fc, -2px -2px 0 #f9a8d4;
+}
+
