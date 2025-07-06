@@ -36,11 +36,12 @@ export default function QuoteCard() {
     <div className="relative flex justify-center items-start min-h-screen bg-gradient-to-br from-pink-100 to-purple-100 pt-16">
       <FallingWordsBackground />
 
-      {/* Main Layout */}
-      <div className="flex items-center justify-center gap-8 w-full max-w-7xl px-8">
-        {/* Quote Box */}
+      {/* Main Layout (now responsive with flex-col on mobile) */}
+      <div className="flex flex-col md:flex-row items-center justify-center gap-8 w-full max-w-7xl px-4 md:px-8">
+        
+        {/* Quote Box (full width on mobile) */}
         <motion.div
-          className="w-[65%] rounded-2xl overflow-hidden shadow-2xl border relative z-10"
+          className="w-full md:w-[65%] rounded-2xl overflow-hidden shadow-2xl border relative z-10"
           style={{ background: 'linear-gradient(to right, #f9a8d4, #c084fc)' }}
         >
           {/* Filling Animation */}
@@ -55,19 +56,19 @@ export default function QuoteCard() {
               transformOrigin: 'bottom'
             }}
           />
-          <div className="p-12 text-white relative z-10">
+          <div className="p-6 md:p-12 text-white relative z-10">
 
             {filteredQuotes.length === 0 ? (
               <form onSubmit={handleSubmit} className="space-y-5">
                 <Input 
-                  className="text-black bg-white placeholder-gray-600 focus:ring-2 focus:ring-pink-400 h-14 text-lg"
+                  className="text-black bg-white placeholder-gray-600 focus:ring-2 focus:ring-pink-400 h-12 md:h-14 text-base md:text-lg"
                   value={topic}
                   onChange={(e) => setTopic(e.target.value)}
                   placeholder="Enter a topic e.g. success"
                 />
                 <Button 
                   type="submit" 
-                  className={`w-full h-14 text-lg ${filling ? 'bg-black text-white' : 'bg-white text-black'} hover:bg-pink-300`}
+                  className={`w-full h-12 md:h-14 text-base md:text-lg ${filling ? 'bg-black text-white' : 'bg-white text-black'} hover:bg-pink-300`}
                 >
                   Generate Quotes
                 </Button>
@@ -88,7 +89,7 @@ export default function QuoteCard() {
                     animate={{ opacity: 1, y: 0 }}
                     exit={{ opacity: 0, y: -30 }}
                     transition={{ duration: 0.5 }}
-                    className="text-2xl font-semibold text-center"
+                    className="text-xl md:text-2xl font-semibold text-center"
                   >
                     {filteredQuotes[current]}
                   </motion.p>
@@ -121,8 +122,8 @@ export default function QuoteCard() {
           </div>
         </motion.div>
 
-        {/* Side Video */}
-        <div className="w-[50%] rounded-2xl overflow-hidden shadow-lg border-4 border-pink-300">
+        {/* Side Video (full width on mobile) */}
+        <div className="w-full md:w-[50%] rounded-2xl overflow-hidden shadow-lg border-4 border-pink-300">
           <video
             autoPlay
             muted
