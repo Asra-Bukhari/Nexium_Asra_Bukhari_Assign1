@@ -17,10 +17,10 @@ Users can enter a topic/keyword and view 3 motivational quotes from a local arra
 
 ## 📂 Project Structure:
 
-> app/ # Pages & UI
-> components/ # Form Component
-> data/ # Quotes data (local)
-> public/ # Static files 
+- app/ # Pages & UI
+- components/ # Form Component
+- data/ # Quotes data (local)
+- public/ # Static files 
 
 
 ## 🌐 View Live on Vercel:
