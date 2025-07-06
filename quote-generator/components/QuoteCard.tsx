@@ -1,6 +1,6 @@
 'use client';
 import dynamic from "next/dynamic";
-const FallingWordsBackground = dynamic(() => import("@/components/FallingWordsBackground"), { ssr: false });
+const FallingPetalsBackground = dynamic(() => import("@/components/FallingPetalsBackground"), { ssr: false });
 
 import { useState } from 'react';
 import quotes from '../data/quotes';
@@ -23,9 +23,7 @@ export default function QuoteCard() {
       setFilteredQuotes(result.map(r => r.text));
       setShowNoQuotes(false);
       setFilling(true);
-      setTimeout(() => {
-        setFilling(false);
-      }, 1500);
+      setTimeout(() => setFilling(false), 1500);
     } else {
       setShowNoQuotes(true);
       setTimeout(() => setShowNoQuotes(false), 2500);
@@ -34,17 +32,14 @@ export default function QuoteCard() {
 
   return (
     <div className="relative flex justify-center items-start min-h-screen bg-gradient-to-br from-pink-100 to-purple-100 pt-16">
-      <FallingWordsBackground />
+      <FallingPetalsBackground />
 
-      {/* Main Layout (now responsive with flex-col on mobile) */}
       <div className="flex flex-col md:flex-row items-center justify-center gap-8 w-full max-w-7xl px-4 md:px-8">
-        
-        {/* Quote Box (full width on mobile) */}
+        {/* Quote Box */}
         <motion.div
           className="w-full md:w-[65%] rounded-2xl overflow-hidden shadow-2xl border relative z-10"
           style={{ background: 'linear-gradient(to right, #f9a8d4, #c084fc)' }}
         >
-          {/* Filling Animation */}
           <motion.div
             className="absolute inset-0 z-0 rounded-2xl"
             initial={false}
@@ -57,7 +52,6 @@ export default function QuoteCard() {
             }}
           />
           <div className="p-6 md:p-12 text-white relative z-10">
-
             {filteredQuotes.length === 0 ? (
               <form onSubmit={handleSubmit} className="space-y-5">
                 <Input 
@@ -73,7 +67,6 @@ export default function QuoteCard() {
                   Generate Quotes
                 </Button>
 
-                {/* No quotes found message */}
                 {showNoQuotes && (
                   <p className="text-center text-sm text-white opacity-80">
                     No available quotes for this topic.
@@ -122,7 +115,7 @@ export default function QuoteCard() {
           </div>
         </motion.div>
 
-        {/* Side Video (full width on mobile) */}
+        {/* Side Video */}
         <div className="w-full md:w-[50%] rounded-2xl overflow-hidden shadow-lg border-4 border-pink-300">
           <video
             autoPlay
