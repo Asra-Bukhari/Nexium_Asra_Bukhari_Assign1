@@ -16,6 +16,8 @@ export default function QuoteCard() {
   const [filling, setFilling] = useState(false);
   const [showNoQuotes, setShowNoQuotes] = useState(false);
 
+  const FILL_DURATION = 1200; // milliseconds
+
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     const result = quotes.filter(q => q.topic.toLowerCase().includes(topic.toLowerCase()));
@@ -23,28 +25,49 @@ export default function QuoteCard() {
       setFilteredQuotes(result.map(r => r.text));
       setShowNoQuotes(false);
       setFilling(true);
-      setTimeout(() => setFilling(false), 1500);
+      setTimeout(() => {
+        setFilling(false);
+      }, FILL_DURATION);
     } else {
       setShowNoQuotes(true);
       setTimeout(() => setShowNoQuotes(false), 2500);
     }
   };
 
+  const handleNext = () => {
+    setFilling(true);
+    setTimeout(() => {
+      setCurrent((current + 1) % filteredQuotes.length);
+      setFilling(false);
+    }, FILL_DURATION);
+  };
+
+  const handlePrev = () => {
+    setFilling(true);
+    setTimeout(() => {
+      setCurrent((current - 1 + filteredQuotes.length) % filteredQuotes.length);
+      setFilling(false);
+    }, FILL_DURATION);
+  };
+
   return (
     <div className="relative flex justify-center items-start min-h-screen bg-gradient-to-br from-pink-100 to-purple-100 pt-16">
       <FallingPetalsBackground />
 
+      {/* Main Layout */}
       <div className="flex flex-col md:flex-row items-center justify-center gap-8 w-full max-w-7xl px-4 md:px-8">
+        
         {/* Quote Box */}
         <motion.div
           className="w-full md:w-[65%] rounded-2xl overflow-hidden shadow-2xl border relative z-10"
           style={{ background: 'linear-gradient(to right, #f9a8d4, #c084fc)' }}
         >
+          {/* Filling Animation */}
           <motion.div
             className="absolute inset-0 z-0 rounded-2xl"
             initial={false}
             animate={{ scaleY: filling ? 1 : 0 }}
-            transition={{ duration: 1.2, ease: "easeInOut" }}
+            transition={{ duration: FILL_DURATION / 1000, ease: "easeInOut" }}
             style={{
               background: 'rgba(255, 255, 255, 0.3)',
               originY: 1,
@@ -52,6 +75,7 @@ export default function QuoteCard() {
             }}
           />
           <div className="p-6 md:p-12 text-white relative z-10">
+
             {filteredQuotes.length === 0 ? (
               <form onSubmit={handleSubmit} className="space-y-5">
                 <Input 
@@ -67,6 +91,7 @@ export default function QuoteCard() {
                   Generate Quotes
                 </Button>
 
+                {/* No quotes found message */}
                 {showNoQuotes && (
                   <p className="text-center text-sm text-white opacity-80">
                     No available quotes for this topic.
@@ -90,20 +115,8 @@ export default function QuoteCard() {
                 <QuoteNavigator
                   current={current}
                   total={filteredQuotes.length}
-                  onNext={() => {
-                    setFilling(true);
-                    setTimeout(() => {
-                      setCurrent((current + 1) % filteredQuotes.length);
-                      setFilling(false);
-                    }, 800);
-                  }}
-                  onPrev={() => {
-                    setFilling(true);
-                    setTimeout(() => {
-                      setCurrent((current - 1 + filteredQuotes.length) % filteredQuotes.length);
-                      setFilling(false);
-                    }, 800);
-                  }}
+                  onNext={handleNext}
+                  onPrev={handlePrev}
                   onReset={() => {
                     setTopic('');
                     setFilteredQuotes([]);
