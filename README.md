@@ -23,7 +23,7 @@ Users can enter a topic/keyword and view 3 motivational quotes from a local arra
 - public/ # Static files 
 
 
-🌐 Live Demo on Vercel:
+## 🌐 Live Demo on Vercel:
 
 Final Version:
 https://quote-generator-murex-three.vercel.app/
