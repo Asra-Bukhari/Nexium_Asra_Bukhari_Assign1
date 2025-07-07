@@ -46,7 +46,7 @@ export default function QuoteCard() {
   };
 
   return (
-    <div className="flex flex-col md:flex-row items-center justify-center gap-4 md:h-[calc(100vh-150px)] md:overflow-hidden px-4">
+    <div className="flex flex-col mt-8 md:mt-0 md:flex-row items-center justify-center gap-4 md:h-[calc(100vh-150px)] md:overflow-hidden px-4">
       {/* Quote Box */}
       <motion.div
         className="w-full max-w-xs md:max-w-sm rounded-2xl overflow-hidden shadow-2xl border border-red-600 relative"
@@ -124,7 +124,7 @@ export default function QuoteCard() {
       </motion.div>
 
       {/* Video */}
-      <div className="w-full md:w-[450px] md:max-h-[720px]">
+      <div className="w-full md:w-[450px] md:max-h-[720px] -mt-4 md:mt-0">
         <video
           autoPlay
           muted
