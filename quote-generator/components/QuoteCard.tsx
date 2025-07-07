@@ -46,7 +46,7 @@ export default function QuoteCard() {
   };
 
   return (
-    <div className="flex flex-col md:flex-row items-center justify-center gap-4 h-[calc(100vh-150px)] overflow-hidden">
+    <div className="flex flex-col md:flex-row items-center justify-center gap-4 md:h-[calc(100vh-150px)] md:overflow-hidden px-4">
       {/* Quote Box */}
       <motion.div
         className="w-full max-w-xs md:max-w-sm rounded-2xl overflow-hidden shadow-2xl border border-red-600 relative"
@@ -124,17 +124,17 @@ export default function QuoteCard() {
       </motion.div>
 
       {/* Video */}
-     <div className="w-full max-h-full md:w-[450px] md:max-h-[720px]">
+      <div className="w-full md:w-[450px] md:max-h-[720px]">
         <video
           autoPlay
           muted
           loop
           playsInline
-          className="w-full h-full object-contain rounded-2xl"
-          >
-         <source src="/background.mp4" type="video/mp4" />
+          className="w-full h-auto object-contain rounded-2xl"
+        >
+          <source src="/background.mp4" type="video/mp4" />
         </video>
-       </div>
+      </div>
     </div>
   );
 }
