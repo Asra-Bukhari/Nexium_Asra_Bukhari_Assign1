@@ -124,7 +124,7 @@ export default function QuoteCard() {
       </motion.div>
 
       {/* Video */}
-     <div className="w-full md:w-[450px] max-h-[240px] md:max-h-[720px]">
+     <div className="w-full max-h-full md:w-[450px] md:max-h-[720px]">
         <video
           autoPlay
           muted
