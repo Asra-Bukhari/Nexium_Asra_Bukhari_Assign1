@@ -1,5 +1,4 @@
 'use client';
-
 import { Button } from "@/components/ui/button";
 
 export default function QuoteNavigator({
@@ -7,13 +6,13 @@ export default function QuoteNavigator({
   total,
   onNext,
   onPrev,
-  onReset,  // ✅ New prop
+  onReset,
 }: {
   current: number;
   total: number;
   onNext: () => void;
   onPrev: () => void;
-  onReset: () => void;  // ✅ New prop type
+  onReset: () => void;
 }) {
   return (
     <div className="space-y-4">
@@ -22,11 +21,9 @@ export default function QuoteNavigator({
         <span>{current + 1} / {total}</span>
         <Button onClick={onNext}>➡️</Button>
       </div>
-
-      {/* ✅ New Button */}
-      <Button  
+      <Button
         onClick={onReset}
-        className="w-full bg-pink-500 text-white hover:bg-pink-600"
+        className="w-full bg-red-600 text-white hover:bg-red-700"
       >
         Search Another Topic
       </Button>

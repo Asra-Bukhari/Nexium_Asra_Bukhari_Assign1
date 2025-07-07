@@ -122,10 +122,31 @@
 }
 
 
+.flashy-text {
+  position: relative;
+  display: inline-block;
+  color: #fff;
+  font-weight: bold;
+  overflow: hidden;
+}
 
+.flashy-text::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -75%;
+  width: 50%;
+  height: 100%;
+  background: linear-gradient(120deg, transparent, rgba(233, 179, 179, 0.6), transparent);
+  animation: sweep 4s infinite;
+}
 
-.stroke-text {
-  -webkit-text-stroke: 1px black;
-  text-shadow: 2px 2px 0 #c084fc, -2px -2px 0 #f9a8d4;
+@keyframes sweep {
+  0% {
+    left: -75%;
+  }
+  100% {
+    left: 125%;
+  }
 }
 

@@ -1,7 +1,4 @@
 'use client';
-import dynamic from "next/dynamic";
-const FallingPetalsBackground = dynamic(() => import("@/components/FallingPetalsBackground"), { ssr: false });
-
 import { useState } from 'react';
 import quotes from '../data/quotes';
 import { Input } from "@/components/ui/input";
@@ -11,23 +8,21 @@ import { motion, AnimatePresence } from 'framer-motion';
 
 export default function QuoteCard() {
   const [topic, setTopic] = useState('');
-  const [filteredQuotes, setFilteredQuotes] = useState<string[]>([]);
+  const [filteredQuotes, setFilteredQuotes] = useState<{ text: string; author: string }[]>([]);
   const [current, setCurrent] = useState(0);
   const [filling, setFilling] = useState(false);
   const [showNoQuotes, setShowNoQuotes] = useState(false);
 
-  const FILL_DURATION = 1200; // milliseconds
+  const FILL_DURATION = 1200;
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     const result = quotes.filter(q => q.topic.toLowerCase().includes(topic.toLowerCase()));
     if (result.length > 0) {
-      setFilteredQuotes(result.map(r => r.text));
+      setFilteredQuotes(result.map(r => ({ text: r.text, author: r.author })));
       setShowNoQuotes(false);
       setFilling(true);
-      setTimeout(() => {
-        setFilling(false);
-      }, FILL_DURATION);
+      setTimeout(() => setFilling(false), FILL_DURATION);
     } else {
       setShowNoQuotes(true);
       setTimeout(() => setShowNoQuotes(false), 2500);
@@ -51,96 +46,95 @@ export default function QuoteCard() {
   };
 
   return (
-    <div className="relative flex justify-center items-start min-h-screen bg-gradient-to-br from-pink-100 to-purple-100 pt-16">
-      <FallingPetalsBackground />
-
-      {/* Main Layout */}
-      <div className="flex flex-col md:flex-row items-center justify-center gap-8 w-full max-w-7xl px-4 md:px-8">
-        
-        {/* Quote Box */}
+    <div className="flex flex-col md:flex-row items-center justify-center gap-4 h-[calc(100vh-150px)] overflow-hidden">
+      {/* Quote Box */}
+      <motion.div
+        className="w-full max-w-xs md:max-w-sm rounded-2xl overflow-hidden shadow-2xl border border-red-600 relative"
+        style={{ background: 'linear-gradient(to right, #2b0000, #6b0000)' }}
+      >
+        {/* Filling animation */}
         <motion.div
-          className="w-full md:w-[65%] rounded-2xl overflow-hidden shadow-2xl border relative z-10"
-          style={{ background: 'linear-gradient(to right, #f9a8d4, #c084fc)' }}
-        >
-          {/* Filling Animation */}
-          <motion.div
-            className="absolute inset-0 z-0 rounded-2xl"
-            initial={false}
-            animate={{ scaleY: filling ? 1 : 0 }}
-            transition={{ duration: FILL_DURATION / 1000, ease: "easeInOut" }}
-            style={{
-              background: 'rgba(255, 255, 255, 0.3)',
-              originY: 1,
-              transformOrigin: 'bottom'
-            }}
-          />
-          <div className="p-6 md:p-12 text-white relative z-10">
+          className="absolute inset-0 z-0 rounded-2xl"
+          initial={false}
+          animate={{ scaleY: filling ? 1 : 0 }}
+          transition={{ duration: FILL_DURATION / 1000, ease: "easeInOut" }}
+          style={{
+            background: 'rgba(255, 255, 255, 0.2)',
+            originY: 1,
+            transformOrigin: 'bottom'
+          }}
+        />
 
-            {filteredQuotes.length === 0 ? (
-              <form onSubmit={handleSubmit} className="space-y-5">
-                <Input 
-                  className="text-black bg-white placeholder-gray-600 focus:ring-2 focus:ring-pink-400 h-12 md:h-14 text-base md:text-lg"
-                  value={topic}
-                  onChange={(e) => setTopic(e.target.value)}
-                  placeholder="Enter a topic e.g. success"
-                />
-                <Button 
-                  type="submit" 
-                  className={`w-full h-12 md:h-14 text-base md:text-lg ${filling ? 'bg-black text-white' : 'bg-white text-black'} hover:bg-pink-300`}
+        <div className="p-4 text-white relative z-10">
+          {filteredQuotes.length === 0 ? (
+            <form onSubmit={handleSubmit} className="space-y-3">
+              <Input
+                className="text-black bg-white placeholder-gray-600 focus:ring-2 focus:ring-red-500 h-10 text-base md:text-lg"
+                value={topic}
+                onChange={(e) => setTopic(e.target.value)}
+                placeholder="Enter topic e.g. success"
+              />
+              <Button
+                type="submit"
+                className={`w-full h-10 text-base md:text-lg ${filling ? 'bg-black text-white' : 'bg-white text-black'} hover:bg-red-500`}
+              >
+                Generate
+              </Button>
+
+              {showNoQuotes && (
+                <p className="text-center text-xs text-white opacity-80">
+                  No quotes found.
+                </p>
+              )}
+            </form>
+          ) : (
+            <div className="space-y-3">
+              <AnimatePresence mode="wait">
+                <motion.div
+                  key={current}
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  exit={{ opacity: 0, y: -20 }}
+                  transition={{ duration: 0.5 }}
+                  className="text-center"
                 >
-                  Generate Quotes
-                </Button>
-
-                {/* No quotes found message */}
-                {showNoQuotes && (
-                  <p className="text-center text-sm text-white opacity-80">
-                    No available quotes for this topic.
+                  <p className="text-base md:text-lg font-semibold mb-1">
+                    “{filteredQuotes[current].text}”
                   </p>
-                )}
-              </form>
-            ) : (
-              <div className="space-y-6">
-                <AnimatePresence mode="wait">
-                  <motion.p
-                    key={current}
-                    initial={{ opacity: 0, y: 30 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    exit={{ opacity: 0, y: -30 }}
-                    transition={{ duration: 0.5 }}
-                    className="text-xl md:text-2xl font-semibold text-center"
-                  >
-                    {filteredQuotes[current]}
-                  </motion.p>
-                </AnimatePresence>
-                <QuoteNavigator
-                  current={current}
-                  total={filteredQuotes.length}
-                  onNext={handleNext}
-                  onPrev={handlePrev}
-                  onReset={() => {
-                    setTopic('');
-                    setFilteredQuotes([]);
-                    setCurrent(0);
-                  }}
-                />
-              </div>
-            )}
-          </div>
-        </motion.div>
+                  <p className="text-xs md:text-sm italic text-red-300">
+                    - {filteredQuotes[current].author}
+                  </p>
+                </motion.div>
+              </AnimatePresence>
 
-        {/* Side Video */}
-        <div className="w-full md:w-[50%] rounded-2xl overflow-hidden shadow-lg border-4 border-pink-300">
-          <video
-            autoPlay
-            muted
-            loop
-            playsInline
-            className="w-full h-auto object-cover"
-          >
-            <source src="/background.mp4" type="video/mp4" />
-          </video>
+              <QuoteNavigator
+                current={current}
+                total={filteredQuotes.length}
+                onNext={handleNext}
+                onPrev={handlePrev}
+                onReset={() => {
+                  setTopic('');
+                  setFilteredQuotes([]);
+                  setCurrent(0);
+                }}
+              />
+            </div>
+          )}
         </div>
-      </div>
+      </motion.div>
+
+      {/* Video */}
+     <div className="w-full md:w-[450px] max-h-[240px] md:max-h-[720px]">
+        <video
+          autoPlay
+          muted
+          loop
+          playsInline
+          className="w-full h-full object-contain rounded-2xl"
+          >
+         <source src="/background.mp4" type="video/mp4" />
+        </video>
+       </div>
     </div>
   );
 }

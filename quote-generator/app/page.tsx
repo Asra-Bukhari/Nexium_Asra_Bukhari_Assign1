@@ -3,16 +3,17 @@ import QuoteCard from "@/components/QuoteCard";
 
 export default function Home() {
   return (
-    <div className="relative flex flex-col items-center min-h-screen bg-gradient-to-br from-pink-100 to-purple-100">
-      {/* Heading */}
-      <div className="text-center mt-10 mb-6 px-4">
-        <h1 className="text-4xl font-extrabold text-white drop-shadow-md stroke-text">
-          Motivational Quote Generator
+    <div className="relative min-h-screen bg-black text-white overflow-hidden">
+
+      {/* Header */}
+      <header className="w-full text-center py-6 border-b border-red-300 bg-white/60 backdrop-blur-sm relative z-10">
+        <h1 className="text-5xl md:text-5xl font-extrabold text-red-400 tracking-widest drop-shadow-[0_2px_2px_rgba(0,0,0,1)]">
+          Élevé
         </h1>
-       <p className="italic text-base md:text-lg text-black font-small leading-relaxed px-4 md:px-0 drop-shadow-sm md:drop-shadow-md ">
-            Feeling Low? Here&apos;s a bit of motivation you need
+        <p className="flashy-text mt-2 text-lg md:text-md italic text-red-200">
+          Elevating Minds with Inspiring Quotes
         </p>
-      </div>
+      </header>
 
       {/* Quote Card */}
       <QuoteCard />
